@@ -1,0 +1,70 @@
+
+### Backend Dependencies (Spring Boot)
+
+1. **Spring Boot Starter Dependencies**
+   - `spring-boot-starter-web`: For building RESTful web applications.
+   - `spring-boot-starter-data-jpa`: For integrating with JPA (Java Persistence API) and using relational databases.
+   - `spring-boot-starter-security`: For handling authentication and security.
+   - `spring-boot-starter-validation`: For input validation.
+   - `spring-boot-starter-test`: For unit testing and integration testing.
+
+2. **Database Driver**
+   - `H2` (for in-memory testing) or `MySQL/PostgreSQL` driver (depending on your choice of database):
+     - `mysql-connector-java` for MySQL.
+     - `postgresql` for PostgreSQL.
+
+3. **JSON Web Token (JWT)**
+   - `jjwt`: For creating and parsing JWTs for user authentication.
+
+4. **Lombok**
+   - `lombok`: To reduce boilerplate code in model classes (optional but helpful).
+
+5. **Springfox (optional)**
+   - `springfox-swagger2` and `springfox-swagger-ui`: For generating API documentation.
+
+### Frontend Dependencies (React)
+
+1. **Core React Libraries**
+   - `react`: Core library for building user interfaces.
+   - `react-dom`: Provides DOM-specific methods that can be used at the top level of the app.
+
+2. **Routing**
+   - `react-router-dom`: For handling routing within the React application.
+
+3. **State Management (optional)**
+   - `redux` and `react-redux`: If you need to manage global state beyond React’s built-in state management.
+
+4. **HTTP Client**
+   - `axios`: For making HTTP requests to the backend API.
+
+5. **Form Handling**
+   - `formik` and `yup`: For managing forms and validation (optional).
+
+6. **Styling**
+   - `bootstrap` or `@mui/material`: For UI components and styling (optional).
+
+7. **Testing Libraries**
+   - `jest` and `@testing-library/react`: For testing components and functionality.
+
+### Technology Requirements
+
+#### Backend Technologies
+- **Java**: The programming language used for the backend.
+- **Spring Boot**: Framework for building Java-based web applications.
+- **JPA**: For database interactions.
+- **Database**: MySQL, PostgreSQL, or H2 (for testing).
+- **JSON**: For data interchange format.
+
+#### Frontend Technologies
+- **JavaScript/TypeScript**: Programming languages used for frontend development.
+- **React**: Library for building user interfaces.
+- **HTML/CSS**: Markup and styling for web pages.
+- **RESTful APIs**: For communication between frontend and backend.
+
+### Development Tools
+- **IDE**: IntelliJ IDEA, Eclipse, or Visual Studio Code for backend development; Visual Studio Code for frontend.
+- **Postman**: For testing API endpoints.
+- **Git**: Version control system to manage code.
+
+### Summary
+
