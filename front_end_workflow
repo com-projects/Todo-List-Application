@@ -1,0 +1,88 @@
+
+### Frontend Structure
+
+#### 1. **Overall Project Structure**
+
+- **/public**
+  - Contains static files like `index.html`, where the React app mounts.
+
+- **/src**
+  - **/components**
+    - Contains reusable UI components.
+      - `Header`: Navigation and app title.
+      - `Footer`: App information or links.
+      - `Login`: User authentication form.
+      - `Register`: User registration form.
+      - `TodoList`: Displays the list of todos.
+      - `TodoItem`: Individual todo display with actions.
+      - `AddTodo`: Form to create new todos.
+
+  - **/services**
+    - Contains service files that handle API interactions.
+      - `authService`: Manages user authentication and registration.
+      - `todoService`: Manages CRUD operations for todos.
+
+  - **/hooks** (optional)
+    - Custom hooks for managing state and side effects (e.g., `useAuth`).
+
+  - **App.js**: Main application component that sets up routing and renders other components.
+
+  - **index.js**: Entry point for the React app.
+
+  - **App.css**: Styles for the application.
+
+### Workflow
+
+#### 1. **User Authentication Workflow**
+
+- **Registration Flow**
+  - User navigates to the Register component.
+  - User fills in their username and password.
+  - On submission, the app calls `authService.register()`.
+  - On success, redirect the user to the Login page or directly log them in.
+
+- **Login Flow**
+  - User navigates to the Login component.
+  - User enters their credentials.
+  - On submission, the app calls `authService.login()`.
+  - On successful authentication, store the user’s token and redirect to the Todo List.
+
+#### 2. **Todo Management Workflow**
+
+- **Viewing Todos**
+  - When the TodoList component mounts, it calls `todoService.getTodos()` to fetch the current user's todos.
+  - Todos are displayed in a list format, with each todo rendered as a `TodoItem`.
+
+- **Adding a Todo**
+  - User fills in the AddTodo form with a task description.
+  - On submission, the form calls `todoService.createTodo()`.
+  - Upon successful creation, update the TodoList state to include the new todo, which automatically re-renders the list.
+
+- **Editing a Todo**
+  - User clicks an Edit button on a TodoItem.
+  - The app displays an editable form (inline or in a modal) pre-filled with the current todo details.
+  - User makes changes and submits the form.
+  - The app calls `todoService.updateTodo()` to save changes.
+  - On success, the updated todo replaces the old one in the TodoList.
+
+- **Deleting a Todo**
+  - User clicks a Delete button on a TodoItem.
+  - The app calls `todoService.deleteTodo()` with the specific todo ID.
+  - Upon successful deletion, remove the todo from the list displayed in the TodoList component.
+
+#### 3. **User Experience (UX) Considerations**
+
+- **Feedback Messages**
+  - Show success or error messages (e.g., “Todo added successfully!” or “Login failed!”) to inform the user of the action results.
+
+- **Loading States**
+  - Implement loading indicators (e.g., spinners) while fetching todos or processing actions like adding or deleting a todo.
+
+- **Responsive Design**
+  - Ensure that the layout adjusts for different screen sizes, providing a seamless experience on both desktop and mobile devices.
+
+- **Accessibility**
+  - Use clear labels and focus management to support users with disabilities.
+
+### Summary
+

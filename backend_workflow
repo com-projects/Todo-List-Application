@@ -1,0 +1,95 @@
+
+### Backend Structure
+
+#### 1. **Overall Project Structure**
+
+```
+/todo-list-app
+|-- /src
+|   |-- /main
+|   |   |-- /java
+|   |   |   |-- /com
+|   |   |   |   |-- /example
+|   |   |   |   |   |-- /todolist
+|   |   |   |   |   |   |-- TodoListApplication.java
+|   |   |   |   |   |   |-- /controller
+|   |   |   |   |   |   |   |-- TodoController.java
+|   |   |   |   |   |   |   |-- AuthController.java
+|   |   |   |   |   |   |-- /model
+|   |   |   |   |   |   |-- Todo.java
+|   |   |   |   |   |   |-- User.java
+|   |   |   |   |   |-- /repository
+|   |   |   |   |   |   |-- TodoRepository.java
+|   |   |   |   |   |   |-- UserRepository.java
+|   |   |   |   |   |-- /service
+|   |   |   |   |   |   |-- TodoService.java
+|   |   |   |   |   |   |-- UserService.java
+|   |   |   |   |   |-- /security
+|   |   |   |   |   |   |-- SecurityConfig.java
+|   |   |-- /resources
+|   |   |   |-- application.properties
+```
+
+### Workflow
+
+#### 1. **User Authentication Workflow**
+
+- **Registration**
+  - User submits registration details (username and password).
+  - `AuthController` handles the request.
+  - The request is processed by `UserService`, which checks for username uniqueness.
+  - If unique, the user is saved in the database via `UserRepository`.
+  - The response indicates success or failure.
+
+- **Login**
+  - User submits login credentials.
+  - `AuthController` processes the login request.
+  - `UserService` verifies credentials (e.g., using bcrypt for password hashing).
+  - On successful authentication, a JWT (JSON Web Token) is generated and sent back to the client for session management.
+
+#### 2. **Todo Management Workflow**
+
+- **Viewing Todos**
+  - When the client requests the list of todos, it calls the `TodoController`.
+  - `TodoController` uses `TodoService` to fetch todos from the database.
+  - `TodoService` interacts with `TodoRepository` to retrieve the list of todos associated with the authenticated user.
+  - The todos are returned as a response to the client.
+
+- **Adding a Todo**
+  - User submits a new todo via the AddTodo component.
+  - The request goes to `TodoController`.
+  - `TodoService` processes the request, creating a new `Todo` object.
+  - The new todo is saved in the database via `TodoRepository`.
+  - A success response is sent back, potentially including the newly created todo.
+
+- **Editing a Todo**
+  - User requests to edit a todo.
+  - The request is handled by `TodoController`.
+  - `TodoService` retrieves the existing todo, applies updates, and saves changes back to the database.
+  - A response indicating success or failure is returned to the client.
+
+- **Deleting a Todo**
+  - User clicks to delete a todo.
+  - The request is routed to `TodoController`.
+  - `TodoService` calls `TodoRepository` to delete the specified todo from the database.
+  - A success or failure response is sent back to the client.
+
+#### 3. **Data Models**
+
+- **User Model**
+  - Contains fields for `id`, `username`, `password`, and any additional user-related data.
+  - Responsible for user authentication and registration.
+
+- **Todo Model**
+  - Contains fields for `id`, `description`, `completed` status, `createdDate`, and `userId` (to associate with the user).
+  - Represents the tasks that users will manage.
+
+#### 4. **Security Configuration**
+
+- **JWT Security**
+  - The application uses Spring Security to protect routes.
+  - The `SecurityConfig` class configures authentication filters and specifies which endpoints require authentication.
+  - JWT is used to validate user sessions and secure API endpoints.
+
+### Summary
+
