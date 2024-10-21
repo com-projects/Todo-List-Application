@@ -1,0 +1,244 @@
+
+### API Documentation for Todo List Application
+
+---
+
+#### Base URL
+```
+http://localhost:8080/api
+```
+
+### Authentication Endpoints
+
+#### 1. User Registration
+
+- **Endpoint**: `/auth/register`
+- **Method**: `POST`
+- **Description**: Registers a new user.
+- **Request Body**:
+    ```json
+    {
+        "username": "string",
+        "password": "string"
+    }
+    ```
+- **Responses**:
+    - **201 Created**: User registered successfully.
+    - **400 Bad Request**: Validation errors (e.g., username already exists).
+
+---
+
+#### 2. User Login
+
+- **Endpoint**: `/auth/login`
+- **Method**: `POST`
+- **Description**: Authenticates a user and returns a JWT.
+- **Request Body**:
+    ```json
+    {
+        "username": "string",
+        "password": "string"
+    }
+    ```
+- **Responses**:
+    - **200 OK**: Returns a JWT token.
+    ```json
+    {
+        "token": "string"
+    }
+    ```
+    - **401 Unauthorized**: Invalid credentials.
+
+---
+
+### Todo Management Endpoints
+
+#### 1. Get All Todos
+
+- **Endpoint**: `/todos`
+- **Method**: `GET`
+- **Description**: Retrieves all todos for the authenticated user.
+- **Headers**:
+    - `Authorization: Bearer <token>`
+- **Responses**:
+    - **200 OK**: Returns an array of todos.
+    ```json
+    [
+        {
+            "id": 1,
+            "description": "string",
+            "completed": false,
+            "createdDate": "2023-10-20T12:34:56Z"
+        },
+        ...
+    ]
+    ```
+
+---
+
+#### 2. Create a Todo
+
+- **Endpoint**: `/todos`
+- **Method**: `POST`
+- **Description**: Creates a new todo.
+- **Headers**:
+    - `Authorization: Bearer <token>`
+- **Request Body**:
+    ```json
+    {
+        "description": "string"
+    }
+    ```
+- **Responses**:
+    - **201 Created**: Returns the created todo.
+    ```json
+    {
+        "id": 1,
+        "description": "string",
+        "completed": false,
+        "createdDate": "2023-10-20T12:34:56Z"
+    }
+    ```
+    - **400 Bad Request**: Validation errors.
+
+---
+
+#### 3. Update a Todo
+
+- **Endpoint**: `/todos/{id}`
+- **Method**: `PUT`
+- **Description**: Updates an existing todo.
+- **Headers**:
+    - `Authorization: Bearer <token>`
+- **Request Body**:
+    ```json
+    {
+        "description": "string",
+        "completed": true
+    }
+    ```
+- **Responses**:
+    - **200 OK**: Returns the updated todo.
+    ```json
+    {
+        "id": 1,
+        "description": "string",
+        "completed": true,
+        "createdDate": "2023-10-20T12:34:56Z"
+    }
+    ```
+    - **404 Not Found**: Todo not found.
+
+---
+
+#### 4. Delete a Todo
+
+- **Endpoint**: `/todos/{id}`
+- **Method**: `DELETE`
+- **Description**: Deletes a todo by ID.
+- **Headers**:
+    - `Authorization: Bearer <token>`
+- **Responses**:
+    - **204 No Content**: Todo deleted successfully.
+    - **404 Not Found**: Todo not found.
+
+---
+
+### Error Responses
+
+- **400 Bad Request**: Validation errors or malformed requests.
+    ```json
+    {
+        "error": "Validation error message"
+    }
+    ```
+
+- **401 Unauthorized**: Missing or invalid token.
+    ```json
+    {
+        "error": "Unauthorized access"
+    }
+    ```
+
+- **404 Not Found**: Resource not found (e.g., todo ID does not exist).
+    ```json
+    {
+        "error": "Resource not found"
+    }
+    ```
+
+- **500 Internal Server Error**: Unexpected server error.
+    ```json
+    {
+        "error": "An unexpected error occurred"
+    }
+    ```
+
+### Summary
+
+
+
+:
+
+Yes, the provided API documentation covers the main functionality for a Todo List application. Here’s a summary of the key endpoints included:
+
+### Summary of Key Endpoints
+
+1. **Authentication Endpoints**
+   - **User Registration**: Allows new users to create an account.
+   - **User Login**: Authenticates users and returns a JWT for session management.
+
+2. **Todo Management Endpoints**
+   - **Get All Todos**: Retrieves all todos for the authenticated user.
+   - **Create a Todo**: Adds a new todo to the user's list.
+   - **Update a Todo**: Modifies an existing todo based on its ID.
+   - **Delete a Todo**: Removes a todo from the user's list based on its ID.
+
+### Additional Considerations
+
+While the provided endpoints cover the core functionality, you might also consider adding the following enhancements:
+
+1. **Search or Filter Todos**
+   - **GET `/todos/search`**: Allows users to search or filter todos by criteria (e.g., completed status, date).
+  
+2. **Pagination**
+   - If the user has many todos, consider implementing pagination for the `GET /todos` endpoint to limit the number of todos returned in a single request.
+
+3. **Todo Priority or Tags**
+   - Additional fields in the Todo model for priority levels or tags could enhance organization.
+
+4. **User Profile Management**
+   - Endpoints for updating user profile information (e.g., username, password change).
+
+5. **Password Reset**
+   - A flow for users to reset forgotten passwords, usually involving email verification.
+
+6. **Error Handling Enhancements**
+   - Detailed error responses with specific codes and messages to help users understand issues.
+
+### Sample Additional Endpoints
+
+#### Search Todos
+
+- **Endpoint**: `/todos/search`
+- **Method**: `GET`
+- **Description**: Searches for todos based on specific criteria.
+- **Query Parameters**: 
+  - `completed`: Filter by completion status (true/false).
+  - `description`: Partial match for todo descriptions.
+  
+---
+
+#### Pagination for Todos
+
+- **Endpoint**: `/todos?page={page}&size={size}`
+- **Method**: `GET`
+- **Description**: Retrieves a paginated list of todos.
+- **Query Parameters**:
+  - `page`: Page number.
+  - `size`: Number of todos per page.
+
+---
+
+### Conclusion
+
